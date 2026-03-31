@@ -1,0 +1,27 @@
+package com.zlq.springaidemo.entity.vo;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.ai.chat.messages.Message;
+
+
+@NoArgsConstructor
+@Data
+public class MessageVO {
+    /*
+     *  封装Message对象
+     */
+
+    private String role;
+    private String content;
+
+    public MessageVO(Message message) {
+        this.role = switch (message.getMessageType()) {
+            case USER -> "user";
+            case ASSISTANT -> "assistant";
+            case SYSTEM -> "system";
+            default -> "";
+        };
+        this.content = message.getText();
+    }
+}
